@@ -1,0 +1,9 @@
+[package]
+name = "sentinel-2-indices"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+regex = "1.6.0"
+image = "0.24.4"
+jpeg2k = "0.6.2"
