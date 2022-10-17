@@ -1,3 +1,18 @@
                                sentinel-2-indices
 
 calculate indices from sentinel-2 satellite data.
+
+usage:
+
+    ./sentinel-2-indices [images_directory_path] [index] [output_image_path]
+                         [output_image_width] [output_image_height]
+
+available indices:
+
+    evi   : enhanced vegetation index
+    ndvi  : normalised difference vegetation index
+    gndvi : green normalised difference vegetation index
+    msi   : moisture stress index
+    ndwi  : normalised difference water index
+    ndbi  : normalised difference built-up index
+    ndbi  : normalised difference mud index
