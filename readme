@@ -4,8 +4,8 @@ calculate indices from sentinel-2 satellite data.
 
 usage:
 
-    ./sentinel-2-indices [images_directory_path] [index] [output_image_path]
-                         [output_image_width] [output_image_height]
+    sentinel-2-indices [images_directory_path] [index] [output_image_path]
+                       [output_image_width] [output_image_height]
 
 available indices:
 

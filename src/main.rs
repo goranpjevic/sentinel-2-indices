@@ -119,7 +119,7 @@ fn calculate_index<F>(images_dir_path: &String, output_image_width: u32, output_
 
 fn usage() {
     println!("usage:\n");
-    print!("    ./sentinel-2-indices [images_directory_path] [index] [output_image_path] ");
+    print!("    sentinel-2-indices [images_directory_path] [index] [output_image_path] ");
     print!("[output_image_width] [output_image_height]\n\n");
     println!("available indices:\n");
     println!("    evi   : enhanced vegetation index");
