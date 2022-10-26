@@ -74,6 +74,66 @@ fn ndmi(one_px_data: Vec<u8>) -> u8 {
     (result * 255.0) as u8
 }
 
+// adjusted transformed soil-adjusted VI
+fn atsavi(one_px_data: Vec<u8>) -> u8 {
+    let b05: f64 = one_px_data[0] as f64 / 255.0;
+    let b09: f64 = one_px_data[1] as f64 / 255.0;
+    let a: f64 = 1.22;
+    let b: f64 = 0.03;
+    let x: f64 = 0.08;
+    let result: f64 = a * ((b09-(a*b05)-b) / ((a*b09)+b05-(a*b)+(x*(1.0+(a.powf(2.0))))));
+    (result * 255.0) as u8
+}
+
+// aerosol free vegetation index 1600
+fn afri1600(one_px_data: Vec<u8>) -> u8 {
+    let b09: f64 = one_px_data[0] as f64 / 255.0;
+    let b11: f64 = one_px_data[1] as f64 / 255.0;
+    let result: f64 = b09 - (0.66 * (b11 / (b09+(0.66*b11))));
+    (result * 255.0) as u8
+}
+
+// aerosol free vegetation index 2100
+fn afri2100(one_px_data: Vec<u8>) -> u8 {
+    let b09: f64 = one_px_data[0] as f64 / 255.0;
+    let b12: f64 = one_px_data[1] as f64 / 255.0;
+    let result: f64 = b09 - (0.5 * (b12 / (b09+(0.56*b12))));
+    (result * 255.0) as u8
+}
+
+// anthocyanin reflectance index
+fn ari(one_px_data: Vec<u8>) -> u8 {
+    let b03: f64 = one_px_data[0] as f64 / 255.0;
+    let b05: f64 = one_px_data[1] as f64 / 255.0;
+    let result: f64 = (1.0 / b03) - (1.0 / b05);
+    (result * 255.0) as u8
+}
+
+// ashburn vegetation index
+fn avi(one_px_data: Vec<u8>) -> u8 {
+    let b04: f64 = one_px_data[0] as f64 / 255.0;
+    let b09: f64 = one_px_data[1] as f64 / 255.0;
+    let result: f64 = (2.0 * b09) - b04;
+    (result * 255.0) as u8
+}
+
+// atmospherically resistant vegetation index 2
+fn arvi2(one_px_data: Vec<u8>) -> u8 {
+    let b05: f64 = one_px_data[0] as f64 / 255.0;
+    let b09: f64 = one_px_data[1] as f64 / 255.0;
+    let result: f64 = (-0.18) + (1.17 * ((b09-b05)/(b09+b05)));
+    (result * 255.0) as u8
+}
+
+// browning reflectance index
+fn bri(one_px_data: Vec<u8>) -> u8 {
+    let b03: f64 = one_px_data[0] as f64 / 255.0;
+    let b05: f64 = one_px_data[1] as f64 / 255.0;
+    let b09: f64 = one_px_data[2] as f64 / 255.0;
+    let result: f64 = ((1.0 / b03) - (1.0 / b05)) / b09;
+    (result * 255.0) as u8
+}
+
 fn get_image(image_paths: fs::ReadDir, band_num: &str) -> Option<Image> {
     for image_path in image_paths {
         let image_path_path: &path::PathBuf = &image_path.unwrap().path();
@@ -122,13 +182,20 @@ fn usage() {
     print!("    sentinel-2-indices [images_directory_path] [index] [output_image_path] ");
     print!("[output_image_width] [output_image_height]\n\n");
     println!("available indices:\n");
-    println!("    evi   : enhanced vegetation index");
-    println!("    ndvi  : normalised difference vegetation index");
-    println!("    gndvi : green normalised difference vegetation index");
-    println!("    msi   : moisture stress index");
-    println!("    ndwi  : normalised difference water index");
-    println!("    ndbi  : normalised difference built-up index");
-    println!("    ndmi  : normalised difference mud index");
+    println!("    evi       : enhanced vegetation index");
+    println!("    ndvi      : normalised difference vegetation index");
+    println!("    gndvi     : green normalised difference vegetation index");
+    println!("    msi       : moisture stress index");
+    println!("    ndwi      : normalised difference water index");
+    println!("    ndbi      : normalised difference built-up index");
+    println!("    ndmi      : normalised difference mud index");
+    println!("    atsavi    : adjusted transformed soil-adjusted VI");
+    println!("    afri1600  : aerosol free vegetation index 1600");
+    println!("    afri2100  : aerosol free vegetation index 2100");
+    println!("    ari       : anthocyanin reflectance index");
+    println!("    avi       : ashburn vegetation index");
+    println!("    arvi2     : atmospherically resistant vegetation index 2");
+    println!("    bri       : browning reflectance index");
 }
 
 fn main() {
@@ -152,6 +219,13 @@ fn main() {
         "ndwi" => (["B03", "B11"].to_vec(), ndwi),
         "ndbi" => (["B08", "B11"].to_vec(), ndbi),
         "ndmi" => (["B08", "B09"].to_vec(), ndmi),
+        "atsavi" => (["B05", "B09"].to_vec(), atsavi),
+        "afri1600" => (["B09", "B11"].to_vec(), afri1600),
+        "afri2100" => (["B09", "B12"].to_vec(), afri2100),
+        "ari" => (["B03", "B05"].to_vec(), ari),
+        "avi" => (["B04", "B09"].to_vec(), avi),
+        "arvi2" => (["B05", "B09"].to_vec(), arvi2),
+        "bri" => (["B03", "B05", "B09"].to_vec(), bri),
         _ => {
             usage();
             panic!("unknown index name: {}_", index_name)
