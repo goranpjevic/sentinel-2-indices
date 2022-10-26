@@ -9,20 +9,21 @@ usage:
 
 available indices:
 
-    evi       : enhanced vegetation index
-    ndvi      : normalised difference vegetation index
-    gndvi     : green normalised difference vegetation index
-    msi       : moisture stress index
-    ndwi      : normalised difference water index
-    ndbi      : normalised difference built-up index
-    ndmi      : normalised difference mud index
-    atsavi    : adjusted transformed soil-adjusted VI
-    afri1600  : aerosol free vegetation index 1600
-    afri2100  : aerosol free vegetation index 2100
-    ari       : anthocyanin reflectance index
-    avi       : ashburn vegetation index
-    arvi2     : atmospherically resistant vegetation index 2
-    bri       : browning reflectance index
-    chlgreen  : chloropyll green
-    cigreen   : chloropyll index green
-    cirededge : chloropyll indexrededge
+    evi        : enhanced vegetation index
+    ndvi       : normalised difference vegetation index
+    gndvi      : green normalised difference vegetation index
+    msi        : moisture stress index
+    ndwi       : normalised difference water index
+    ndbi       : normalised difference built-up index
+    ndmi       : normalised difference mud index
+    atsavi     : adjusted transformed soil-adjusted VI
+    afri1600   : aerosol free vegetation index 1600
+    afri2100   : aerosol free vegetation index 2100
+    ari        : anthocyanin reflectance index
+    avi        : ashburn vegetation index
+    arvi2      : atmospherically resistant vegetation index 2
+    bri        : browning reflectance index
+    chlgreen   : chloropyll green
+    cigreen    : chloropyll index green
+    cirededge  : chloropyll indexrededge
+    chlrededge : chloropyll red-edge
