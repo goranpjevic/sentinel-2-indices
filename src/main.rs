@@ -166,7 +166,6 @@ fn chlrededge(one_px_data: Vec<u8>) -> u8 {
     (result * 255.0) as u8
 }
 
-
 fn get_image(image_paths: fs::ReadDir, band_num: &str) -> Option<Image> {
     for image_path in image_paths {
         let image_path_path: &path::PathBuf = &image_path.unwrap().path();
